@@ -2,16 +2,49 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CalculateurAge.MainPage"
-             Title="Calculateur">
+             Title="Calculateur d'Âge">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="12">
-            <Label Text="Nom" FontSize="16"/>
-            <Entry x:Name="entryNom" Placeholder="Votre nom"/>
-            <Label Text="Date de naissance" FontSize="16"/>
-            <DatePicker x:Name="pickerDate"/>
-            <Button x:Name="btnCalculer" Text="Calculer" Clicked="OnCalculerClicked"/>
-            <Label x:Name="lblResultat" FontSize="20" IsVisible="False"/>
+            <!-- Section saisie -->
+            <Label Text="Informations personnelles" FontAttributes="Bold" FontSize="18"/>
+
+            <Label Text="Nom" FontSize="16" FontAttributes="Bold"/>
+            <Entry Text="{Binding Nom, Mode=TwoWay}" Placeholder="Votre nom"/>
+
+            <Label Text="Date de naissance" FontSize="16" FontAttributes="Bold"/>
+            <DatePicker Date="{Binding DateNaissance, Mode=TwoWay}"/>
+
+            <!-- Boutons d'actions -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                <Button Grid.Column="0" Text="Calculer" Command="{Binding CalculerCommand}" BackgroundColor="#2196F3"/>
+                <Button Grid.Column="1" Text="Effacer" Command="{Binding EffacerCommand}" BackgroundColor="#FF9800"/>
+            </Grid>
+
+            <!-- Section résultats -->
+            <BoxView Color="#e0e0e0" HeightRequest="1" Margin="0,10"/>
+
+            <Label Text="{Binding Resultat}" FontSize="20" FontAttributes="Bold" IsVisible="{Binding ResultatVisible}"/>
+
+            <!-- Fonctionnalité 1 : Âge détaillé -->
+            <Label Text="Âge détaillé :" FontSize="14" FontAttributes="Bold" IsVisible="{Binding ResultatVisible}"/>
+            <Label Text="{Binding AgeDetaille}" FontSize="14" IsVisible="{Binding ResultatVisible}"/>
+
+            <!-- Fonctionnalité 2 : Signe du zodiaque -->
+            <Label Text="Signe du zodiaque :" FontSize="14" FontAttributes="Bold" IsVisible="{Binding ResultatVisible}"/>
+            <Label Text="{Binding SigneZodiaque}" FontSize="14" IsVisible="{Binding ResultatVisible}"/>
+
+            <!-- Message majeur/mineur -->
+            <Label Text="{Binding Message}" FontSize="14" FontAttributes="Bold" TextColor="#4CAF50" IsVisible="{Binding ResultatVisible}"/>
+
+            <!-- Jours avant anniversaire -->
+            <Label Text="Jours avant votre anniversaire :" FontSize="14" FontAttributes="Bold" IsVisible="{Binding ResultatVisible}"/>
+            <Label Text="{Binding JoursRestants, StringFormat='{0} jours'}" FontSize="14" IsVisible="{Binding ResultatVisible}"/>
+
+            <!-- Fonctionnalité 3 : Thème -->
+            <BoxView Color="#e0e0e0" HeightRequest="1" Margin="0,10"/>
+            <Label Text="Paramètres" FontAttributes="Bold" FontSize="18"/>
+            <Button Text="{Binding EstThemeSombre, StringFormat='Thème : {0}'}" Command="{Binding BasculerThemeCommand}" BackgroundColor="#9C27B0"/>
         </VerticalStackLayout>
     </ScrollView>
 

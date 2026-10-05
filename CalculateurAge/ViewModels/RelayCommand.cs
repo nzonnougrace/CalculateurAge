@@ -1,0 +1,38 @@
+using System.Windows.Input;
+
+namespace CalculateurAge.ViewModels;
+
+/// <summary>
+/// Transforme une méthode en objet liable à un Button.
+/// </summary>
+public class RelayCommand : ICommand
+{
+    private readonly Action _executer;         // quoi faire
+    private readonly Func<bool> _peutExecuter; // si possible
+
+    public RelayCommand(Action executer,
+                        Func<bool> peutExecuter = null)
+    {
+        _executer = executer;
+        _peutExecuter = peutExecuter;
+    }
+
+    /// <summary>
+    /// Le Button appelle ceci et se grise si false.
+    /// </summary>
+    public bool CanExecute(object p)
+        => _peutExecuter?.Invoke() ?? true;
+
+    /// <summary>
+    /// Exécute l'action au clic.
+    /// </summary>
+    public void Execute(object p) => _executer();
+
+    public event EventHandler CanExecuteChanged;
+
+    /// <summary>
+    /// À appeler pour forcer le bouton à reposer la question.
+    /// </summary>
+    public void Rafraichir()
+        => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+}
