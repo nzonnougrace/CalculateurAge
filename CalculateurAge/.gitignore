@@ -1,0 +1,34 @@
+# VS Code
+.vscode/
+
+# Visual Studio
+.vs/
+bin/
+obj/
+*.user
+*.suo
+.idea/
+
+# NuGet
+.nuget/
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+
+# Rider
+.idea/
+*.sln.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# MAUI
+.maui/
+AppPackages/
+
+# Local user-specific files
+*.local
